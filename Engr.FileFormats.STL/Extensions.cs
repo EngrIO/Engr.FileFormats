@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Engr.Maths.Engr.Maths;
+using Engr.Maths.Vectors;
 
 namespace Engr.FileFormats.STL
 {
@@ -15,9 +15,9 @@ namespace Engr.FileFormats.STL
             }
         }
 
-        public static Vect3 ToVect3(this IEnumerable<float> data)
+        public static Vect3f ToVect3f(this IEnumerable<float> data)
         {
-            return new Vect3(data.ToArray());
+            return new Vect3f(data.ToArray());
         }
     }
 }

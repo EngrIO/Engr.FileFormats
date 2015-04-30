@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Engr.Maths">
-      <HintPath>..\packages\Engr.Maths.1.0.0-CI00001\lib\net45\Engr.Maths.dll</HintPath>
+    <Reference Include="Engr.Maths, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Engr.Maths.1.0.0-CI00003\lib\net45\Engr.Maths.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
