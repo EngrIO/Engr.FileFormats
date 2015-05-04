@@ -69,6 +69,16 @@ namespace Engr.FileFormats.OBJ
                     Textures.Add(data,Image.FromStream(FileSource.Get(data)));
                     //TODO load image
                     break;
+                case "map_Ka":
+                    break;
+                case "r":
+                    break;
+                case "d":
+                    break;
+                case "sharpness":
+                    break;
+                case "Ni":
+                    break;
                 default:
                     throw new Exception(keyword);
                     //

@@ -1,5 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Engr.FileFormats.OBJ;
+using Engr.FileFormats.STL;
+using Engr.Maths.Vectors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Engr.FileFormats.Tests
@@ -53,6 +59,45 @@ namespace Engr.FileFormats.Tests
             Assert.AreEqual(677, ship3.TextureVertices.Count);
             Assert.AreEqual(627, ship3.Normals.Count);
             Assert.AreEqual(546, ship3.Faces.Count);
+        }
+        [TestMethod]
+        public void Test()
+        {
+            var stlIn = new STLFile()
+            {
+                Header = "Testing",
+            };
+            stlIn.Facets.Add(new Facet(Vect3f.UnitX, Vect3f.UnitX, Vect3f.UnitX, Vect3f.UnitX));
+            stlIn.Facets.Add(new Facet(Vect3f.UnitY, Vect3f.UnitY, Vect3f.UnitY, Vect3f.UnitY));
+            stlIn.Facets.Add(new Facet(Vect3f.UnitZ, Vect3f.UnitZ, Vect3f.UnitZ, Vect3f.UnitZ));
+
+            Assert.AreEqual(stlIn.Header, "Testing");
+            Assert.AreEqual(stlIn.Facets.Count, 3);
+
+            var ms = new MemoryStream();
+            stlIn.Save(ms, true);
+
+            ms.Position = 0;
+
+            var stlOut = new STLFile(ms);
+
+            Assert.AreEqual(stlIn.Header, stlOut.Header);
+            Assert.AreEqual(stlIn.Facets.Count, stlOut.Facets.Count);
+
+           
+
+
+            //stl.Facets.Add();
+
+
+
+            //using (var md5 = MD5.Create())
+            //{
+            //    using (var stream = File.OpenRead(filename))
+            //    {
+            //        md5.ComputeHash(stream);
+            //    }
+            //}
         }
 
     }

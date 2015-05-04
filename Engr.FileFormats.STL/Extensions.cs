@@ -19,5 +19,12 @@ namespace Engr.FileFormats.STL
         {
             return new Vect3f(data.ToArray());
         }
+
+        public static void Write(this BinaryWriter br, Vect3f v)
+        {
+            br.Write(v.X);
+            br.Write(v.Y);
+            br.Write(v.Z);
+        }
     }
 }

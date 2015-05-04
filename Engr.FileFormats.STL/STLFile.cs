@@ -125,6 +125,40 @@ namespace Engr.FileFormats.STL
                 return new STLFile(stream);
             }
         }
+
+        public void Save(Stream stream, bool leaveOpen = true)
+        {
+            switch (STLType)
+            {
+                case STLType.Binary:
+                    using (var br = new BinaryWriter(stream, Encoding.UTF8, leaveOpen))
+                    {
+                        br.Write(Encoding.UTF8.GetBytes(Header.PadRight(80, '\0')), 0, 80);
+                        br.Write(Facets.Count);
+                        foreach (var facet in Facets)
+                        {
+                            br.Write(facet.Normal);
+                            br.Write(facet.Vertex1);
+                            br.Write(facet.Vertex2);
+                            br.Write(facet.Vertex3);
+                            br.Write((UInt16)0);
+                        }
+                        br.Flush();
+                    }
+                    break;
+                case STLType.ASCII:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+
+        public void Save(string filename)
+        {
+            using (var stream = File.Create(filename))
+                Save(stream, false);
+        }
     }
 }
 
