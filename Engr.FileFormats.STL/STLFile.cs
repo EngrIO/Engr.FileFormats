@@ -63,10 +63,10 @@ namespace Engr.FileFormats.STL
                 var count = (int)br.ReadUInt32();
                 for (var i = 0; i < count; i++)
                 {
-                    var normal = br.ReadSingles(3).ToVect3f();
-                    var v1 = br.ReadSingles(3).ToVect3f();
-                    var v2 = br.ReadSingles(3).ToVect3f();
-                    var v3 = br.ReadSingles(3).ToVect3f();
+                    var normal = br.ReadSingles(3).ToVect3();
+                    var v1 = br.ReadSingles(3).ToVect3();
+                    var v2 = br.ReadSingles(3).ToVect3();
+                    var v3 = br.ReadSingles(3).ToVect3();
                     br.ReadUInt16();//attributeByteCount
                     yield return new Facet(normal,v1,v2,v3);
                 }
@@ -76,8 +76,8 @@ namespace Engr.FileFormats.STL
         private IEnumerable<Facet> ReadASCII(Stream stream)
         {
             stream.Position = 0;
-            Vect3f normal = null;
-            var vertices = new Vect3f[3];
+            Vect3 normal = null;
+            var vertices = new Vect3[3];
             var i = 0;
             const NumberStyles style = NumberStyles.AllowExponent | NumberStyles.AllowLeadingSign | NumberStyles.Number;
             using (var reader = new StreamReader(stream))
@@ -95,12 +95,12 @@ namespace Engr.FileFormats.STL
                             }
                             break;
                         case "facet":
-                            normal = new Vect3f(float.Parse(split[2], style), float.Parse(split[3], style), float.Parse(split[4], style));
+                            normal = new Vect3(float.Parse(split[2], style), float.Parse(split[3], style), float.Parse(split[4], style));
                             break;
                         case "outer":
                             break;
                         case "vertex":
-                            vertices[i++] = new Vect3f(float.Parse(split[1], style),float.Parse(split[2], style),float.Parse(split[3], style));
+                            vertices[i++] = new Vect3(float.Parse(split[1], style),float.Parse(split[2], style),float.Parse(split[3], style));
                             break;
                         case "endloop":
                             break;
@@ -138,9 +138,9 @@ namespace Engr.FileFormats.STL
                         foreach (var facet in Facets)
                         {
                             br.Write(facet.Normal);
-                            br.Write(facet.Vertex1);
-                            br.Write(facet.Vertex2);
-                            br.Write(facet.Vertex3);
+                            br.Write(facet.Point1);
+                            br.Write(facet.Point2);
+                            br.Write(facet.Point3);
                             br.Write((UInt16)0);
                         }
                         br.Flush();

@@ -1,20 +1,14 @@
-﻿
+﻿using Engr.Geometry.Shapes;
 using Engr.Maths.Vectors;
 
 namespace Engr.FileFormats.STL
 {
-    public class Facet
+    public class Facet:Triangle
     {
-        public Vect3f Normal { get; set; }
-        public Vect3f Vertex1 { get; set; }
-        public Vect3f Vertex2 { get; set; }
-        public Vect3f Vertex3 { get; set; }
-        public Facet(Vect3f normal, Vect3f vertex1, Vect3f vertex2, Vect3f vertex3)
+        public Facet(Vect3 normal, Vect3 v1, Vect3 v2, Vect3 v3):
+            base(v1,v2,v3)
         {
-            Normal = normal;
-            Vertex1 = vertex1;
-            Vertex2 = vertex2;
-            Vertex3 = vertex3;
+
         }
     }
 }

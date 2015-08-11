@@ -15,16 +15,16 @@ namespace Engr.FileFormats.STL
             }
         }
 
-        public static Vect3f ToVect3f(this IEnumerable<float> data)
+        public static Vect3 ToVect3(this IEnumerable<float> data)
         {
-            return new Vect3f(data.ToArray());
+            return new Vect3(data.ToArray());
         }
 
-        public static void Write(this BinaryWriter br, Vect3f v)
+        public static void Write(this BinaryWriter br, Vect3 v)
         {
-            br.Write(v.X);
-            br.Write(v.Y);
-            br.Write(v.Z);
+            br.Write((float)v.X);
+            br.Write((float)v.Y);
+            br.Write((float)v.Z);
         }
     }
 }
